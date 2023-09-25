@@ -3,7 +3,7 @@ import 'dart:convert';
 import 'package:http/http.dart' as http;
 
 class Category {
-  final int id;
+  final String id;
   final String name;
   final String thumb;
   final String description;
@@ -17,10 +17,10 @@ class Category {
 
   factory Category.fromJson(Map<String, dynamic> json) {
     return Category(
-      id: json['idCategory'],
-      name: json['strCategory'],
-      thumb: json['strCategoryThumb'],
-      description: json['strCategoryDescription'],
+      id: json['idCategory'] ?? "",
+      name: json['strCategory'] ?? "",
+      thumb: json['strCategoryThumb'] ?? "",
+      description: json['strCategoryDescription'] ?? "",
     );
   }
 }
@@ -31,8 +31,11 @@ Future<List<Category>> AllCategories() async {
       .get(Uri.parse("https://www.themealdb.com/api/json/v1/1/categories.php"));
 
   if (res.statusCode == 200) {
-    for (int i = 0; i <= 13; i++) {
-      list.add(Category.fromJson(jsonDecode(res.body)));
+    final Map<String, dynamic> data = jsonDecode(res.body);
+    final categories = data['categories'];
+
+    for (final categoryData in categories) {
+      list.add(Category.fromJson(categoryData));
     }
   } else {
     throw Exception(res.body);

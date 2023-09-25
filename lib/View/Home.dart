@@ -15,7 +15,6 @@ class _HomePageState extends State<HomePage> {
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     Categories = AllCategories();
   }
@@ -24,17 +23,53 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(title: Text("SsAaP")),
-      body: Center(
-        child: FutureBuilder(
-          future: Categories,
-          builder: (context, snapshot) {
-            if (snapshot.hasData) {
-              return Text("data");
-            } else if (snapshot.hasError) {
-              return Text(snapshot.error.toString());
-            }
-            return CircularProgressIndicator();
-          },
+      body: SingleChildScrollView(
+        child: Center(
+          child: Column(
+            children: [
+              SizedBox(height: 50),
+              FutureBuilder(
+                future: Categories,
+                builder: (context, snapshot) {
+                  if (snapshot.hasData) {
+                    return SingleChildScrollView(
+                      scrollDirection: Axis.horizontal, // Set horizontal scroll
+                      child: Row(
+                        children: <Widget>[
+                          for (var category in snapshot.data!)
+                            Container(
+                              decoration: BoxDecoration(boxShadow: const [
+                                BoxShadow(
+                                  color: Colors.grey,
+                                  offset: Offset(2, 2),
+                                  blurRadius: 3,
+                                  spreadRadius: 1,
+                                ),
+                              ], color: Colors.white),
+                              width: 100,
+                              height: 150,
+                              margin: EdgeInsets.all(3),
+                              padding: EdgeInsets.all(4),
+                              child: Column(
+                                children: [
+                                  Image.network(category.thumb),
+                                  SizedBox(height: 8),
+                                  Text(category.name),
+                                ],
+                              ),
+                            )
+                        ],
+                      ),
+                    );
+                  } else if (snapshot.hasError) {
+                    return Text(snapshot.error.toString());
+                  }
+                  return CircularProgressIndicator();
+                },
+              ),
+              SizedBox(height: 50),
+            ],
+          ),
         ),
       ),
     );
