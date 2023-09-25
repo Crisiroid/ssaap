@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:http/http.dart' as http;
 
 class Category {
@@ -21,4 +23,20 @@ class Category {
       description: json['strCategoryDescription'],
     );
   }
+}
+
+Future<List<Category>> AllCategories() async {
+  List<Category> list = [];
+  var res = await http
+      .get(Uri.parse("https://www.themealdb.com/api/json/v1/1/categories.php"));
+
+  if (res.statusCode == 200) {
+    for (int i = 0; i <= 13; i++) {
+      list.add(Category.fromJson(jsonDecode(res.body)));
+    }
+  } else {
+    throw Exception(res.body);
+  }
+
+  return list;
 }
