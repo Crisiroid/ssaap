@@ -1,6 +1,8 @@
+import 'dart:convert';
+
 import 'package:http/http.dart' as http;
 
-class MealItem {
+class Recipe {
   final String idMeal;
   final String strMeal;
   final String? strDrinkAlternate;
@@ -21,7 +23,7 @@ class MealItem {
   final String strIngredient9;
   final String strIngredient10;
 
-  MealItem({
+  Recipe({
     required this.idMeal,
     required this.strMeal,
     this.strDrinkAlternate,
@@ -43,8 +45,8 @@ class MealItem {
     required this.strIngredient10,
   });
 
-  factory MealItem.fromJson(Map<String, dynamic> json) {
-    return MealItem(
+  factory Recipe.fromJson(Map<String, dynamic> json) {
+    return Recipe(
       idMeal: json['idMeal'],
       strMeal: json['strMeal'],
       strDrinkAlternate: json['strDrinkAlternate'],
@@ -65,5 +67,16 @@ class MealItem {
       strIngredient9: json['strIngredient9'],
       strIngredient10: json['strIngredient10'],
     );
+  }
+}
+
+Future<Recipe> showRecipe(String id) async {
+  final res = await http.get(
+      Uri.parse("https://www.themealdb.com/api/json/v1/1/lookup.php?i=${id}"));
+
+  if (res.statusCode == 200) {
+    return Recipe.fromJson(jsonDecode(res.body));
+  } else {
+    throw Exception(res.body);
   }
 }
