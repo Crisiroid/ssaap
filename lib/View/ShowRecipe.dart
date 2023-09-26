@@ -18,6 +18,8 @@ class _ShowRecipeState extends State<ShowRecipe> {
     super.initState();
     if (this.widget.mode == "") {
       r = showRecipe(this.widget.name);
+    } else {
+      r = randomRecipe();
     }
   }
 

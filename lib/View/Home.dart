@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:ssaap/Model/RecipeCategory.dart';
 import 'package:ssaap/View/Decoration/IngredientBox.dart';
 import 'package:ssaap/View/FoodCategory.dart';
+import 'package:ssaap/View/ShowRecipe.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key});
@@ -220,7 +221,15 @@ class _HomePageState extends State<HomePage> {
                     ),
                   ),
                   ElevatedButton(
-                    onPressed: () {},
+                    onPressed: () {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => ShowRecipe(
+                                    name: "",
+                                    mode: "r",
+                                  )));
+                    },
                     style: ElevatedButton.styleFrom(
                       primary: const Color.fromARGB(255, 87, 130, 194),
                       onPrimary: Colors.white,
