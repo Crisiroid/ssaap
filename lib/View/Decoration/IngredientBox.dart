@@ -17,6 +17,7 @@ class CategoryByIngredient extends StatelessWidget {
     return GestureDetector(
       onTap: onTap,
       child: Container(
+        width: 204,
         padding: EdgeInsets.all(4),
         decoration:
             BoxDecoration(color: color, borderRadius: BorderRadius.circular(3)),
