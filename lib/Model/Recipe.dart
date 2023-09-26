@@ -190,3 +190,22 @@ Future<List<Recipe>> showRecipe(String id) async {
 
   return list;
 }
+
+Future<List<Recipe>> randomRecipe(String id) async {
+  List<Recipe> list = [];
+  final res = await http
+      .get(Uri.parse("https://www.themealdb.com/api/json/v1/1/random.php"));
+
+  if (res.statusCode == 200) {
+    final Map<String, dynamic> data = jsonDecode(res.body);
+    final recipes = data['meals'];
+
+    for (final categoryData in recipes) {
+      list.add(Recipe.fromJson(categoryData));
+    }
+  } else {
+    throw Exception(res.body);
+  }
+
+  return list;
+}

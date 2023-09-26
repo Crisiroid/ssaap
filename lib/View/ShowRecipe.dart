@@ -3,7 +3,8 @@ import 'package:ssaap/Model/Recipe.dart';
 
 class ShowRecipe extends StatefulWidget {
   final String name;
-  const ShowRecipe({super.key, required this.name});
+  final String mode;
+  const ShowRecipe({super.key, required this.name, this.mode = ""});
 
   @override
   State<ShowRecipe> createState() => _ShowRecipeState();
@@ -15,7 +16,9 @@ class _ShowRecipeState extends State<ShowRecipe> {
   @override
   void initState() {
     super.initState();
-    r = showRecipe(this.widget.name);
+    if (this.widget.mode == "") {
+      r = showRecipe(this.widget.name);
+    }
   }
 
   @override
