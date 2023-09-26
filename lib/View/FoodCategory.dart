@@ -56,8 +56,10 @@ class FoodItemWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onDoubleTap: () {
-        Navigator.push(context,
-            MaterialPageRoute(builder: (context) => ShowRecipe(name: "52772")));
+        Navigator.push(
+            context,
+            MaterialPageRoute(
+                builder: (context) => ShowRecipe(name: food.idMeal)));
       },
       child: SizedBox(
         height: 100,

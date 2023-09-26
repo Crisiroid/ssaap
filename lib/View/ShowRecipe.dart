@@ -3,14 +3,14 @@ import 'package:ssaap/Model/Recipe.dart';
 
 class ShowRecipe extends StatefulWidget {
   final String name;
-  const ShowRecipe({Key? key, required this.name}) : super(key: key);
+  const ShowRecipe({super.key, required this.name});
 
   @override
   State<ShowRecipe> createState() => _ShowRecipeState();
 }
 
 class _ShowRecipeState extends State<ShowRecipe> {
-  late Future<Recipe> r;
+  late Future<List<Recipe>> r;
 
   @override
   void initState() {
@@ -22,72 +22,96 @@ class _ShowRecipeState extends State<ShowRecipe> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Recipe Details'),
+        title: Text("View recipe"),
       ),
-      body: FutureBuilder<Recipe>(
-        future: r,
-        builder: (context, snapshot) {
-          if (snapshot.connectionState == ConnectionState.waiting) {
-            return Center(
-              child: CircularProgressIndicator(),
-            );
-          } else if (snapshot.hasError) {
-            return Center(
-              child: Text('Error: ${snapshot.error}'),
-            );
-          } else if (!snapshot.hasData) {
-            return Center(
-              child: Text('No data available'),
-            );
-          } else {
-            final recipe = snapshot.data!;
-            return SingleChildScrollView(
-              padding: EdgeInsets.all(16.0),
-              child: Column(
+      body: SingleChildScrollView(
+        child: FutureBuilder(
+          future: r,
+          builder: (context, snapshot) {
+            if (snapshot.hasData) {
+              final recipe = snapshot.data![0];
+
+              return Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text(
-                    recipe.strMeal,
-                    style: TextStyle(
-                      fontSize: 24.0,
-                      fontWeight: FontWeight.bold,
+                  Padding(
+                    padding: const EdgeInsets.all(16.0),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Center(
+                            child: Image.network(
+                          recipe.strMealThumb,
+                          height: 400,
+                        )),
+                        Padding(
+                          padding: const EdgeInsets.all(16.0),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                recipe.strMeal,
+                                style: TextStyle(
+                                  fontSize: 24,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                              SizedBox(height: 8),
+                              Text("Category: ${recipe.strCategory}"),
+                              SizedBox(height: 8),
+                              Text("Area: ${recipe.strArea}"),
+                              SizedBox(height: 8),
+                              Text("Instructions:"),
+                              Text(recipe.strInstructions),
+                              SizedBox(height: 8),
+                              Text("Ingredients:"),
+                              if (recipe.strIngredient1.isNotEmpty)
+                                Text(
+                                    "${recipe.strMeasure1} ${recipe.strIngredient1}"),
+                              if (recipe.strIngredient2.isNotEmpty)
+                                Text(
+                                    "${recipe.strMeasure2} ${recipe.strIngredient2}"),
+                              if (recipe.strIngredient3.isNotEmpty)
+                                Text(
+                                    "${recipe.strMeasure3} ${recipe.strIngredient3}"),
+                              if (recipe.strIngredient4.isNotEmpty)
+                                Text(
+                                    "${recipe.strMeasure4} ${recipe.strIngredient4}"),
+                              if (recipe.strIngredient5.isNotEmpty)
+                                Text(
+                                    "${recipe.strMeasure5} ${recipe.strIngredient5}"),
+                              if (recipe.strIngredient6.isNotEmpty)
+                                Text(
+                                    "${recipe.strMeasure6} ${recipe.strIngredient6}"),
+                              if (recipe.strIngredient7.isNotEmpty)
+                                Text(
+                                    "${recipe.strMeasure7} ${recipe.strIngredient7}"),
+                              if (recipe.strIngredient8.isNotEmpty)
+                                Text(
+                                    "${recipe.strMeasure8} ${recipe.strIngredient8}"),
+                              if (recipe.strIngredient9.isNotEmpty)
+                                Text(
+                                    "${recipe.strMeasure9} ${recipe.strIngredient9}"),
+                              if (recipe.strIngredient10.isNotEmpty)
+                                Text(
+                                    "${recipe.strMeasure10} ${recipe.strIngredient10}"),
+                              SizedBox(height: 8),
+                              Text("Source: ${recipe.strSource}"),
+                            ],
+                          ),
+                        ),
+                      ],
                     ),
-                  ),
-                  SizedBox(height: 16.0),
-                  Image.network(
-                    recipe.strMealThumb,
-                    width: 200,
-                    height: 200,
-                    fit: BoxFit.cover,
-                  ),
-                  SizedBox(height: 16.0),
-                  Text(
-                    'Category: ${recipe.strCategory}',
-                    style: TextStyle(fontSize: 16.0),
-                  ),
-                  SizedBox(height: 8.0),
-                  Text(
-                    'Area: ${recipe.strArea}',
-                    style: TextStyle(fontSize: 16.0),
-                  ),
-                  SizedBox(height: 16.0),
-                  Text(
-                    'Instructions:',
-                    style: TextStyle(
-                      fontSize: 18.0,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                  SizedBox(height: 8.0),
-                  Text(
-                    recipe.strInstructions,
-                    style: TextStyle(fontSize: 16.0),
                   ),
                 ],
-              ),
-            );
-          }
-        },
+              );
+            } else if (snapshot.hasError) {
+              return Text(snapshot.error.toString());
+            }
+
+            return Center(child: CircularProgressIndicator());
+          },
+        ),
       ),
     );
   }
