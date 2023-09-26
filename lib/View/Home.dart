@@ -63,7 +63,7 @@ class _HomePageState extends State<HomePage> {
                                 context,
                                 MaterialPageRoute(
                                     builder: (context) =>
-                                        const FoodCategory(name: "Chicken")));
+                                        const FoodCategory(name: "i=Chicken")));
                           },
                           color: Colors.white,
                           imageUrl:
@@ -77,7 +77,7 @@ class _HomePageState extends State<HomePage> {
                                 context,
                                 MaterialPageRoute(
                                     builder: (context) =>
-                                        const FoodCategory(name: "Beef")));
+                                        const FoodCategory(name: "i=Beef")));
                           },
                           color: Colors.white,
                           imageUrl:
@@ -96,7 +96,7 @@ class _HomePageState extends State<HomePage> {
                                 context,
                                 MaterialPageRoute(
                                     builder: (context) =>
-                                        const FoodCategory(name: "Salmon")));
+                                        const FoodCategory(name: "i=Salmon")));
                           },
                           color: Colors.white,
                           imageUrl:
@@ -110,7 +110,7 @@ class _HomePageState extends State<HomePage> {
                                 context,
                                 MaterialPageRoute(
                                     builder: (context) =>
-                                        const FoodCategory(name: "Pork")));
+                                        const FoodCategory(name: "i=Pork")));
                           },
                           color: Colors.white,
                           imageUrl:
@@ -139,45 +139,55 @@ class _HomePageState extends State<HomePage> {
                       child: Row(
                         children: <Widget>[
                           for (var category in snapshot.data!)
-                            Container(
-                              decoration: BoxDecoration(
-                                boxShadow: [
-                                  BoxShadow(
-                                    color: Colors.grey.withOpacity(0.5),
-                                    offset: Offset(0, 3),
-                                    blurRadius: 6,
-                                    spreadRadius: 1,
-                                  ),
-                                ],
-                                color: Colors.white,
-                                borderRadius: BorderRadius.circular(8),
-                              ),
-                              width: 120,
-                              height: 150,
-                              margin: EdgeInsets.all(8),
-                              padding: EdgeInsets.all(8),
-                              child: Column(
-                                children: [
-                                  ClipRRect(
-                                    borderRadius: BorderRadius.circular(8),
-                                    child: Image.network(
-                                      category.thumb,
-                                      width: 80,
-                                      height: 80,
-                                      fit: BoxFit.cover,
+                            GestureDetector(
+                              onTap: () {
+                                String adr = "c=${category.name}";
+                                Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) =>
+                                            FoodCategory(name: adr)));
+                              },
+                              child: Container(
+                                decoration: BoxDecoration(
+                                  boxShadow: [
+                                    BoxShadow(
+                                      color: Colors.grey.withOpacity(0.5),
+                                      offset: Offset(0, 3),
+                                      blurRadius: 6,
+                                      spreadRadius: 1,
                                     ),
-                                  ),
-                                  SizedBox(height: 8),
-                                  Text(
-                                    category.name,
-                                    style: TextStyle(
-                                      fontSize: 16,
-                                      fontWeight: FontWeight.bold,
-                                      color: Colors.black,
+                                  ],
+                                  color: Colors.white,
+                                  borderRadius: BorderRadius.circular(8),
+                                ),
+                                width: 120,
+                                height: 150,
+                                margin: EdgeInsets.all(8),
+                                padding: EdgeInsets.all(8),
+                                child: Column(
+                                  children: [
+                                    ClipRRect(
+                                      borderRadius: BorderRadius.circular(8),
+                                      child: Image.network(
+                                        category.thumb,
+                                        width: 80,
+                                        height: 80,
+                                        fit: BoxFit.cover,
+                                      ),
                                     ),
-                                    textAlign: TextAlign.center,
-                                  ),
-                                ],
+                                    SizedBox(height: 8),
+                                    Text(
+                                      category.name,
+                                      style: TextStyle(
+                                        fontSize: 16,
+                                        fontWeight: FontWeight.bold,
+                                        color: Colors.black,
+                                      ),
+                                      textAlign: TextAlign.center,
+                                    ),
+                                  ],
+                                ),
                               ),
                             )
                         ],

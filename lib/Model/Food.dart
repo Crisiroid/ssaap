@@ -24,8 +24,8 @@ class Food {
 
 Future<List<Food>> AllFoods(String name) async {
   final List<Food> list = [];
-  final res = await http.get(Uri.parse(
-      "https://www.themealdb.com/api/json/v1/1/filter.php?i=" + name));
+  final res = await http.get(
+      Uri.parse("https://www.themealdb.com/api/json/v1/1/filter.php?" + name));
 
   if (res.statusCode == 200) {
     final Map<String, dynamic> data = jsonDecode(res.body);
