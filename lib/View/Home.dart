@@ -3,6 +3,7 @@
 import 'package:flutter/material.dart';
 import 'package:ssaap/Model/RecipeCategory.dart';
 import 'package:ssaap/View/Decoration/IngredientBox.dart';
+import 'package:ssaap/View/FoodCategory.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key});
@@ -57,7 +58,13 @@ class _HomePageState extends State<HomePage> {
                       children: [
                         CategoryByIngredient(
                           name: "Chicken",
-                          onTap: () {},
+                          onTap: () {
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) =>
+                                        const FoodCategory(name: "Chicken")));
+                          },
                           color: Colors.white,
                           imageUrl:
                               "https://www.themealdb.com/images/category/chicken.png",
@@ -65,7 +72,13 @@ class _HomePageState extends State<HomePage> {
                         SizedBox(width: 10),
                         CategoryByIngredient(
                           name: "Beef",
-                          onTap: () {},
+                          onTap: () {
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) =>
+                                        const FoodCategory(name: "Beef")));
+                          },
                           color: Colors.white,
                           imageUrl:
                               "https://www.themealdb.com/images/category/beef.png",
@@ -78,7 +91,13 @@ class _HomePageState extends State<HomePage> {
                       children: [
                         CategoryByIngredient(
                           name: "Salmon",
-                          onTap: () {},
+                          onTap: () {
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) =>
+                                        const FoodCategory(name: "Salmon")));
+                          },
                           color: Colors.white,
                           imageUrl:
                               "https://www.themealdb.com/images/category/seafood.png",
@@ -86,7 +105,13 @@ class _HomePageState extends State<HomePage> {
                         SizedBox(width: 10),
                         CategoryByIngredient(
                           name: "Pork",
-                          onTap: () {},
+                          onTap: () {
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) =>
+                                        const FoodCategory(name: "Pork")));
+                          },
                           color: Colors.white,
                           imageUrl:
                               "https://www.themealdb.com/images/category/pork.png",
